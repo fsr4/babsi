@@ -44,7 +44,7 @@ article:last-of-type {
 
 .line-info > span, .departure-time {
     font-size: 2em;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .destination {
