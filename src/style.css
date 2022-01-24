@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    --border: 1px solid gray;
+    --row-height: calc(100vh / 6);
+}
+
+body {
+    margin: 0;
+    font: 6vh "Fira Sans Condensed", "Fira Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+article {
+    width: 100vw;
+    height: var(--row-height);
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: var(--border);
+    position: relative;
+}
+
+article:last-of-type {
+    border-bottom: none;
+}
+
+.line-info {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 20vw;
+    max-width: 5em;
+}
+
+.line-info > img {
+    max-height: 100%;
+    width: auto;
+}
+
+.line-info > span {
+    margin-left: 0.2em;
+}
+
+.line-info > span, .departure-time {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.destination {
+    flex-grow: 1;
+    padding-left: 6vw;
+}
+
+.departure-time.now {
+    text-align: center;
+    background: #f0ca00;
+    font-size: 1em;
+    width: var(--row-height);
+    height: var(--row-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: absolute;
+    right: 0;
+    text-transform: uppercase;
+    border-bottom: var(--border);
+}
+
+.error {
+    text-align: center;
+    color: #888;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+article.fade {
+    margin-top: calc(-1 * var(--row-height));
+    transition: margin-top 1s ease-in-out;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background: #333;
+        color: white;
+    }
+
+    .departure-time.now {
+        color: black;
+    }
+}
