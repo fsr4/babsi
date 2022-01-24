@@ -119,7 +119,8 @@ function createDepartureNode(departure) {
 
 function setDepartureTime(node, departure) {
     const departureTimeNode = node.querySelector(".departure-time");
-    if (departure.minsUntilDeparture === 0) {
+    if (departure.minsUntilDeparture <= 0) {
+        departureTimeNode.innerHTML = "";
         const now = nowTemplate.content.cloneNode(true);
         departureTimeNode.classList.add("now");
         departureTimeNode.append(now);

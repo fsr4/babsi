@@ -16,7 +16,7 @@ article {
     height: var(--row-height);
     display: flex;
     align-items: center;
-    padding: 2rem;
+    padding: 0.5em;
     border-bottom: var(--border);
     position: relative;
 }
