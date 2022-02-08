@@ -2,6 +2,12 @@ const baseUrl = "https://v5.bvg.transport.rest";
 const stopId = "900000181503";
 const resultCount = 6;
 
+const coordinates = {
+    lat: 52.457864,
+    lng: 13.526777,
+};
+
+let body;
 let container;
 let template;
 let nowTemplate;
@@ -10,12 +16,13 @@ let isValidAspectRatio;
 let nodeCount = 0;
 
 document.addEventListener("DOMContentLoaded", async () => {
+    body = document.querySelector("body");
     container = document.querySelector("main");
     template = document.querySelector("#departure");
     nowTemplate = document.querySelector("#now");
 
     await checkAspectRatio();
-    setInterval(refreshDepartures, 30 * 1000); // Refresh every 30 seconds
+    setInterval(update, 30 * 1000); // Refresh every 30 seconds
 });
 
 window.addEventListener("resize", debounce(checkAspectRatio, 500));
@@ -33,7 +40,7 @@ async function checkAspectRatio() {
     if (!isValidAspectRatio) {
         isValidAspectRatio = true;
         clearContent();
-        await refreshDepartures();
+        await update();
     }
 }
 
@@ -47,6 +54,36 @@ function displayError(error) {
 function clearContent() {
     nodeCount = 0;
     container.innerHTML = "";
+}
+
+async function update() {
+    await Promise.all([checkDaytime(), refreshDepartures()]);
+}
+
+async function checkDaytime() {
+    if (await isDaytime())
+        body.classList.remove("dark");
+    else
+        body.classList.add("dark");
+}
+
+async function isDaytime() {
+    const sunTimes = await fetchSunTimes();
+    const now = new Date();
+
+    const sunrise = new Date(`${now.toLocaleDateString("en")} ${sunTimes.sunrise}`);
+    const sunset = new Date(`${now.toLocaleDateString("en")} ${sunTimes.sunset}`);
+
+    return (now.getTime() > sunrise.getTime() && now.getTime() < sunset.getTime());
+}
+
+async function fetchSunTimes() {
+    const response = await fetch(`https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.lng}`);
+    const sunTimes = await response.json();
+    return {
+        sunrise: sunTimes.sunrise,
+        sunset: sunTimes.sunset
+    };
 }
 
 async function refreshDepartures() {

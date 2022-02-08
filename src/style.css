@@ -82,13 +82,12 @@ article.fade {
     transition: margin-top 1s ease-in-out;
 }
 
-@media screen and (prefers-color-scheme: dark) {
-    body {
-        background: #333;
-        color: white;
-    }
+/* Dark mode */
+body.dark {
+    background: #333;
+    color: white;
+}
 
-    .departure-time.now {
-        color: black;
-    }
+body.dark .departure-time.now {
+    color: black;
 }
