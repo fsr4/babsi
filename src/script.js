@@ -126,6 +126,7 @@ function setDepartureTime(node, departure) {
         departureTimeNode.classList.add("now");
         departureTimeNode.append(now);
     } else {
+        departureTimeNode.classList.remove("now");
         departureTimeNode.innerHTML = departure.minsUntilDeparture + "'";
     }
 }
