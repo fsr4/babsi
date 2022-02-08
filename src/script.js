@@ -74,6 +74,7 @@ async function fetchDepartures() {
     const response = await fetch(`${baseUrl}/stops/${stopId}/departures?duration=120&results=${resultCount}`);
     const departures = await response.json();
     return departures.map(d => {
+        // noinspection JSUnresolvedVariable, JSDeprecatedSymbols
         return {
             id: d.tripId,
             type: d.line.product,
