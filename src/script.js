@@ -59,14 +59,15 @@ async function refreshDepartures() {
 }
 
 function removeOutdatedNodes() {
-    while (nodeCount > resultCount) {
-        const remove = container.querySelector("article:first-of-type");
-        remove.classList.add("fade");
-        setTimeout(() => {
-            container.removeChild(remove);
-        }, 1000);
+    if (nodeCount === resultCount)
+        return;
+    const remove = container.querySelector("article:first-of-type");
+    remove.classList.add("fade");
+    setTimeout(() => {
+        container.removeChild(remove);
         nodeCount--;
-    }
+        removeOutdatedNodes();
+    }, 1000);
 }
 
 async function fetchDepartures() {
