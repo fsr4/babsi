@@ -1,5 +1,5 @@
-const baseUrl = "https://v5.bvg.transport.rest";
-const stopId = "900000181503";
+const baseUrl = "https://v6.bvg.transport.rest";
+const stopId = "900181503";
 const resultCount = 6;
 
 const coordinates = {
@@ -109,8 +109,8 @@ function removeOutdatedNodes() {
 
 async function fetchDepartures() {
     const response = await fetch(`${baseUrl}/stops/${stopId}/departures?duration=120&results=${resultCount}`);
-    const departures = await response.json();
-    return departures.map(d => {
+    const data = await response.json();
+    return data.departures.map(d => {
         // noinspection JSUnresolvedVariable, JSDeprecatedSymbols
         return {
             id: d.tripId,
